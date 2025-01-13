@@ -48,7 +48,18 @@ return {
       local cmp = require('cmp')
 
       -- Map Tab to jump to next placeholder or expand snippet
-      vim.api.nvim_set_keymap('i', '<Tab>', [[lua require'luasnip'.expand_or_jump()]], { noremap = true, silent = true })
+      config = function()
+        local function jump_param()
+          local col = vim.fn.col('.') - 1
+          local line = vim.fn.getline('.')
+          local before_cursor = line:sub(1, col)
+          if before_cursor:match('%b()') then
+            require'luasnip'.expand_or_jump()
+          else
+            vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes('<Tab>', true, true, true), 'n', true) 
+          end
+        end
+      end
 
       -- Map Shift+Tab to jump to the previous placeholder
       vim.api.nvim_set_keymap('i', '<S-Tab>', [[lua require'luasnip'.jump(-1)]], { noremap = true, silent = true })
