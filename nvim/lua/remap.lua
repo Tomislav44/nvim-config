@@ -29,6 +29,7 @@ vim.api.nvim_create_autocmd({"Filetype"}, {
 vim.keymap.set("n", "<leader>pv", vim.cmd.Ex)
 
 vim.o.scrolloff = 8
+vim.o.mouse = 'a'
 vim.opt.autoindent = true
 vim.opt.smartindent = true
 vim.opt.shiftwidth = 2
